@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('index', [
-            'posts' => $this->post->where('active', '=', 1)->get(),
+            'posts' => $this->post->where('active', '=', 1)->orderBy('id', 'dec')->get(),
         ]);
     }
 }

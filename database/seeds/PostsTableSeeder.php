@@ -37,7 +37,7 @@ class PostsTableSeeder extends Seeder
             'active'       => 1,
             'title'        => 'title 3',
             'published_at' => Carbon::now(),
-            'body'         => $faker->paragraph(3),
+            'body'         => $faker->paragraph(30),
         ]);
     }
 }
