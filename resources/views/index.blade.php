@@ -16,9 +16,9 @@
     </tr>
     @foreach($posts as $post)
     <tr>
-        <td>{{$post->title}}</td>
-        <td style="height: 40px;">
-            <div style="width: 400; height: 150px; overflow:hidden;">
+        <td class="titleDiv" id="title_{{$post->id}}">{{$post->title}}</td>
+        <td id="body_{{$post->id}}" class="show_partially">
+            <div style="width: 500px;">
                 {!!$post->body!!}
             </div>
         </td>
@@ -28,7 +28,16 @@
     @endforeach
     @endif
 </table>
-
-
-
+<script type="text/javascript">
+    $(document).ready(function(){
+       $('.titleDiv').click(function(){
+        var id = $(this).attr('id').replace('title_','body_');
+        if ($("#" + id).hasClass("show_partially")) {
+            $("#" + id).removeClass("show_partially");
+        }else {
+            $("#" + id).addClass("show_partially");
+        }
+    });
+   });
+</script>
 @endsection

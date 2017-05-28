@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+@if ( session()->has('message') )
+<span style="color:red;margin-left:2em; font-size: 10pt">{{ session()->get('message') }}</span>
+@endif
 <div class="container">
-    <a href="/admin/create" class="btn btn-sm btn-primary pull-right">Add New Entry</a>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+        <a href="/admin/create" class="btn btn-sm btn-default">Add New Entry</a>
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
                 @if(count($posts) === 0)
@@ -28,12 +31,12 @@
                             <td>@if((int)$post->active === 1) TRUE @else FALSE @endif</td>
                             <td>{{$post->title}}</td>
 
-                            <td>
-                                <a href="">Edit</a>
-                                <form method="POST" action="" onsubmit="">
+                            <td >
+                                <a  class="btn btn-primary"  href={{"/admin/".$post->id."/edit"}}>Edit</a>
+                                <form style="display:inline-block;" method="POST" action="/admin/{{$post->id}}" onsubmit=" return confirm('Do you really wish to delete this post?');">
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <input type="submit"  class="btn btn-link text-danger" value="Delete">
+                                    <input type="submit"  class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
                         </tr>
@@ -45,4 +48,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function confirmationForDeletingEntry(post){
+        return confirm("Do you really wish to remove "+ post +" ?");
+    }
+</script>
 @endsection

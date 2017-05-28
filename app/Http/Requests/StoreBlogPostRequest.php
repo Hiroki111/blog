@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use App\Post;
 
 class StoreBlogPostRequest extends Request
 {
@@ -23,9 +24,23 @@ class StoreBlogPostRequest extends Request
      */
     public function rules()
     {
-        return [
-            'title' => 'required|unique:posts|max:255',
-            'body'  => 'required',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                {
+                    return [
+                        'title' => 'required|unique:posts|max:255',
+                        'body'  => 'required',
+                    ];
+                }
+            case 'PUT':
+                {
+                    $post = Post::find($this->get('id'));
+                    return [
+                        'title' => 'required|unique:posts,title,' . $post->id . '|max:255',
+                        'body'  => 'required',
+                    ];
+                }
+            default:break;
+        }
     }
 }

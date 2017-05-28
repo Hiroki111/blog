@@ -11,23 +11,24 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
         DB::table('users')->insert([
-            'name'     => 'Malcolm Turnbull',
+            'name'     => $faker->name,
             'email'    => 'user1@gmail.com',
             'password' => bcrypt("adminpass1"),
         ]);
         DB::table('users')->insert([
-            'name'     => 'Tony Abbott',
+            'name'     => $faker->name,
             'email'    => 'user2@gmail.com',
             'password' => bcrypt("adminpass2"),
         ]);
         DB::table('users')->insert([
-            'name'     => 'Kevin Rudd',
+            'name'     => $faker->name,
             'email'    => 'user3@gmail.com',
             'password' => bcrypt("adminpass3"),
         ]);
         DB::table('users')->insert([
-            'name'     => 'Julia Gillard',
+            'name'     => $faker->name,
             'email'    => 'user4@gmail.com',
             'password' => bcrypt("adminpass4"),
         ]);
