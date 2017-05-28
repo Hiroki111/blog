@@ -30,11 +30,9 @@
         }
 
         .show_partially{
-            height: 40px;
-        }
-        .show_partially > div {
             height: 150px; overflow:hidden;
         }
+        
     </style>
 </head>
 <body id="app-layout">
@@ -58,10 +56,10 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
+                @if (Auth::check() && strpos(url()->current(), 'admin') !== false )
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Home</a></li>
                 </ul>
-                @if (Auth::check() && strpos(url()->current(), 'admin') !== false )
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/admin') }}">Admin Menu</a></li>
                 </ul>
@@ -69,10 +67,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Login</a></li>
-                    <!-- <li><a href="{{ url('/register') }}">Register</a></li> -->
-                    @elseif(strpos(url()->current(), 'admin') !== false)
+                    @if(strpos(url()->current(), 'admin') !== false)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>

@@ -2,32 +2,22 @@
 
 @section('content')
 
-<table cellspacing="0" cellpadding="0" border="0" class="table table-striped" style="width: 80%" align="center">
+<div class="container">
     @if(count($posts) === 0)
-    <tr>
-        <td>No blogs are available.</td>
-    </tr>
+    <div>
+        <h3>No blogs are available.</h3>
+    </div>
     @else
-    <tr>
-        <th style="min-width: 20px;">Title</th>
-        <th style="min-width: 400px;">Body</th>
-        <th style="min-width: 50px;">Published At</th>
-        <th style="min-width: 150px;">Author</th>
-    </tr>
     @foreach($posts as $post)
-    <tr>
-        <td class="titleDiv" id="title_{{$post->id}}">{{$post->title}}</td>
-        <td id="body_{{$post->id}}" class="show_partially">
-            <div style="width: 500px;">
-                {!!$post->body!!}
-            </div>
-        </td>
-        <td>{{date("d/m/Y", strtotime($post->published_at))}}</td>
-        <td>{{$post->user->name}}</td>
-    </tr>
+    <h2 class="titleDiv" id="title_{{$post->id}}">{{$post->title}}</h2>
+    <h4>Published At : {{date("d/m/Y", strtotime($post->published_at))}}</h4>
+    <h4>Author :{{$post->user->name}}</h4>
+    <div >
+        <div id="body_{{$post->id}}" class="show_partially" style="width: 800px;">{{$post->body}}</div>
+    </div>
     @endforeach
     @endif
-</table>
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
        $('.titleDiv').click(function(){
